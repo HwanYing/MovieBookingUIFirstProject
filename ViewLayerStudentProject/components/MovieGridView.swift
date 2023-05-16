@@ -11,7 +11,6 @@ struct MovieGridView: View {
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var sectionName: String
-    @State var stateId = 0
     
 //    var onTapMovie: () -> Void = {}
 //
@@ -27,32 +26,14 @@ struct MovieGridView: View {
         ScrollView{
             LazyVGrid(columns: columns, spacing: MARGIN_MEDIUM_4) {
                 ForEach(1...10, id: \.self) { item in
-//                    if sectionName == MOVIE_SECTION_TYPE {
-                        
-                        NavigationLink(value: item){
+                    NavigationLink(value: ViewOptionsRoute.movieDetails){
                             if sectionName == MOVIE_SECTION_TYPE {
                                 MovieCardView()
                             } else {
                                 ComingSoonCardView()
                             }
 
-                        }.navigationDestination(for: Int.self, destination: { _ in
-                            if sectionName == MOVIE_SECTION_TYPE {
-                                AboutNSMovieView(stateId: $stateId)
-                            } else {
-                                AboutCSMovieView()
-                            }
-                        })
-//                        MovieCardView()
-//                            .onTapGesture {
-//                                onTapMovie()
-//                            }
-//                    } else {
-//                        ComingSoonCardView()
-//                            .onTapGesture {
-//                                onTapMovie()
-//                            }
-//                    }
+                        }
                 }
             }
             .padding([.leading, .trailing], MARGIN_MEDIUM_1)
@@ -61,8 +42,9 @@ struct MovieGridView: View {
 }
 
 struct MovieGridView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        MovieGridView(sectionName: "") // onTapMovie: {}, sectionName: ""
+        MovieGridView(sectionName: "")
     }
 }
 

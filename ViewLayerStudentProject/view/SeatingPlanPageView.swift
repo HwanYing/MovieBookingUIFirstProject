@@ -40,6 +40,7 @@ struct SeatingPlanPageView: View {
             }
         }
         .edgesIgnoringSafeArea([.top, .bottom])
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -64,7 +65,7 @@ struct SeatingPlanAppBarView: View {
             Spacer()
         }
         .padding([.leading, .trailing], MARGIN_MEDIUM_4)
-        .padding(.top, MARGIN_XXLARGE)
+        .padding(.top, MARGIN_XBIG - MARGIN_MEDIUM)
         .onTapGesture {
             onTapBack()
         }

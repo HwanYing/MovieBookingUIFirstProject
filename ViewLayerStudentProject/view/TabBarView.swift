@@ -10,9 +10,9 @@ import SwiftUI
 struct TabBarView: View {
     
     @State var current: String = TAB_ONE_LABEL
-
+    
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
                 // Background Color
                 Color(BG_COLOR)
@@ -44,7 +44,7 @@ struct TabBarView: View {
                 }
             }
         }
-       
+        
     }
 }
 

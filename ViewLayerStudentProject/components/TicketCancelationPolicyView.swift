@@ -12,26 +12,26 @@ struct TicketCancelationPolicyView: View {
     @Binding var showDialog: Bool
     
     var body: some View {
-       
+        
         ZStack(alignment: .center) {
-               
-                if showDialog {
-                    // Background color
-                    Color(BG_COLOR)
-                        .opacity(0.7)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            self.showDialog = false
-                        }
-                    
-                    TicketPolicyView()
-                }
+            
+            if showDialog {
+                // Background color
+                Color(BG_COLOR)
+                    .opacity(0.7)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        self.showDialog = false
+                    }
                 
-             
+                TicketPolicyView(showDialog: $showDialog)
             }
+            
+            
+        }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .animation(.easeInOut, value: 1)
-
+        
     }
 }
 
@@ -42,6 +42,9 @@ struct TicketCancelationPolicyView_Previews: PreviewProvider {
 }
 
 struct TicketPolicyView: View {
+    
+    @Binding var showDialog: Bool
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0.0) {
             Text(TICKET_CANCELING_POLICY)
@@ -98,7 +101,7 @@ struct TicketPolicyView: View {
             .padding(.top, MARGIN_XLARGE + MARGIN_MEDIUM)
             
             Button(action: {
-                
+                showDialog = false
             }, label: {
                 Text(CLOSE_BUTTON_LABEL)
                     .font(.system(size: MARGIN_MEDIUM_2))

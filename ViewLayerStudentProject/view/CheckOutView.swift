@@ -13,94 +13,88 @@ struct CheckOutView: View {
     let cardBgColor = LinearGradient(gradient: Gradient(colors: [Color(CHECK_OUT_TWO_COLOR),Color(CHECK_OUT_ONE_COLOR), Color(CHECK_OUT_TWO_COLOR)]), startPoint: .top, endPoint: .bottom)
     @State var ticketPolicyShow = false
     @State var showPayment: Bool = false
-    
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                // Background color
-                Color(BG_COLOR)
-               
-                    VStack{
-                        // App Bar Section
-                        CheckOutAppbarView()
-                        
-                        // Check Info Section
-                        VStack(alignment: .leading,spacing: 0.0) {
-                            // MovieTitle section
-                            MovieTitleSectionView()
-                            
-                            // cinema place, screen no.
-                            CinemaPlaceScreenView()
-                            
-                            // Date, time , place
-                            DateTimePlaceCombineView()
-                         
-                            // no of ticket
-                            NumberOfTicketSectionView(ticketCount: ticketCount)
-                            
-                            // tiket info section
-                            TicketInfoSectionView()
-                            
-                            Divider()
-                                .background(Color(SUB_TEXT_COLOR))
-                                .padding(.top, MARGIN_MEDIUM_4)
-                            
-                            // food and beverage title
-                            FoodAndBeverageTitleView()
-                            
-                            // food and beverage section
-                            FoodListView()
-                            
-                            VStack(alignment: .leading, spacing: 0.0) {
-                                
-                                // Dash divider
-                                DashedLineView()
+    @Environment(\.dismiss) var dismiss
 
-                                // convenience fee title
-                                ConvenienceFeeTitleView()
-                                
-                                // ticket policy section
-                                TicketPolicySectionView(ticketPolicyShow: $ticketPolicyShow)
-                                
-                                Divider()
-                                    .background(Color(SUB_TEXT_COLOR))
-                                    .padding(.top, MARGIN_XLARGE - 2)
-                                
-                                // Final Total section
-                                FinalTotalView()
-                            }
-                            
-                           
-                            
-                        }
-                        .padding([.leading,.trailing], MARGIN_LARGE)
-                        .frame(width: UIScreen.main.bounds.width - MARGIN_SXLARGE)
-                        .padding(.top, MARGIN_XLARGE)
-                        .background(cardBgColor)
-                        .cornerRadius(MARGIN_MEDIUM)
+    var body: some View {
+        ZStack {
+            // Background color
+            Color(BG_COLOR)
+            
+            VStack{
+                // App Bar Section
+                CheckOutAppbarView(){
+                    dismiss()
+                }
+                
+                // Check Info Section
+                VStack(alignment: .leading,spacing: 0.0) {
+                    // MovieTitle section
+                    MovieTitleSectionView()
+                    
+                    // cinema place, screen no.
+                    CinemaPlaceScreenView()
+                    
+                    // Date, time , place
+                    DateTimePlaceCombineView()
+                    
+                    // no of ticket
+                    NumberOfTicketSectionView(ticketCount: ticketCount)
+                    
+                    // tiket info section
+                    TicketInfoSectionView()
+                    
+                    Divider()
+                        .background(Color(SUB_TEXT_COLOR))
+                        .padding(.top, MARGIN_MEDIUM_4)
+                    
+                    // food and beverage title
+                    FoodAndBeverageTitleView()
+                    
+                    // food and beverage section
+                    FoodListView()
+                    
+                    VStack(alignment: .leading, spacing: 0.0) {
                         
-                        // continue button
-                        NavigationLink(value: 0) {
-                          
-//                            Text("Continue")
-//                                .foregroundColor(.white)
-                            BottomFloatingBtnView(text: CONTINUE_BTN_LABEL, grabAbite: .constant(false), showPayment: $showPayment)
-                                .padding(.top, MARGIN_MEDIUM)
-                        }
+                        // Dash divider
+                        DashedLineView()
+                        
+                        // convenience fee title
+                        ConvenienceFeeTitleView()
+                        
+                        // ticket policy section
+                        TicketPolicySectionView(ticketPolicyShow: $ticketPolicyShow)
+                        
+                        Divider()
+                            .background(Color(SUB_TEXT_COLOR))
+                            .padding(.top, MARGIN_XLARGE - 2)
+                        
+                        // Final Total section
+                        FinalTotalView()
                     }
-                  
-    //            TicketCancelationPolicyView(showDialog: $ticketPolicyShow)
-                   
+                    
+                    
+                    
+                }
+                .padding([.leading,.trailing], MARGIN_LARGE)
+                .frame(width: UIScreen.main.bounds.width - MARGIN_SXLARGE)
+                .padding(.top, MARGIN_XLARGE)
+                .background(cardBgColor)
+                .cornerRadius(MARGIN_MEDIUM)
+                
+                // continue button
+                NavigationLink(value: ViewOptionsRoute.payment) {
+                    
+                    BottomFloatingBtnView(text: CONTINUE_BTN_LABEL)
+                        .padding(.top, MARGIN_MEDIUM)
+                }
             }
-            .edgesIgnoringSafeArea([.top, .bottom])
-    //        .fullScreenCover(isPresented: $showPayment) {
-    //            PaymentPageVeiw(showPayment: $showPayment)
-    //        }
-            .navigationDestination(for: Int.self) { _ in
-                PaymentPageVeiw(showPayment: $showPayment)
-            }
-        .navigationBarBackButtonHidden(true)
+            
+            TicketCancelationPolicyView(showDialog: $ticketPolicyShow)
+            
         }
+        .edgesIgnoringSafeArea([.top, .bottom])
+        
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -111,6 +105,9 @@ struct CheckOutView_Previews: PreviewProvider {
 }
 
 struct CheckOutAppbarView: View {
+    
+    var onTapBack: () -> Void = {}
+    
     var body: some View {
         HStack {
             // back icon
@@ -119,8 +116,11 @@ struct CheckOutAppbarView: View {
                 .frame(width: MARGIN_CARD_MEDIUM_2, height: MARGIN_LARGE - 2)
                 .foregroundColor(.white)
                 .fontWeight(.bold)
-                .padding()
-            
+                .padding([.leading, .trailing], MARGIN_LARGE)
+                .onTapGesture {
+                    // TODO: Navigate back
+                    onTapBack()
+                }
             Spacer()
             
             // title
@@ -132,7 +132,6 @@ struct CheckOutAppbarView: View {
             
             Spacer()
         }
-        .padding(.leading, MARGIN_MEDIUM)
         .padding(.top, MARGIN_MEDIUM)
     }
 }

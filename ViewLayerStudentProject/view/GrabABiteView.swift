@@ -13,56 +13,51 @@ struct GrabABiteView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     @State var itemCount = 1
     @Binding var grabAbite: Bool
-    //    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
     @State var filterSheet = false
     @State var image = IC_CHEV_DOWN
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // Background color
-                Color(BG_COLOR)
-                
-                ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-                    VStack(alignment: .leading, spacing: 0.0) {
-                        
-                        // App Bar section
-                        AppBarSectionView(){
-                            self.grabAbite = false
-                            //                        dismiss()
-                        }
-                        
-                        // SnackType section
-                        SnackTypeSectionView(snacks: $snacks)
-                        
-                        // Snack Grid list section
-                        SnackGridView().padding(.top, MARGIN_LARGE)
-                        
-                    }
-                    .padding(.top, FOOTER_PADDING)
+        ZStack {
+            // Background color
+            Color(BG_COLOR)
+            
+            ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+                VStack(alignment: .leading, spacing: 0.0) {
                     
-                    // SNACK count bottom view
-                    if filterSheet {
-                        FoodItemCountSheet()
-                            .onTapGesture {
-                                self.filterSheet.toggle()
-                            }
-                    } else {
-                        NavigationLink(value: 0) {
-                            SnackCountBottomView(itemCount: $itemCount, image: IC_CHEV_DOWN, filterSheet: $filterSheet)
-                        }
-                        .navigationDestination(for: Int.self) { _ in
-                           CheckOutView()
-                        }
-                            
+                    // App Bar section
+                    AppBarSectionView(){
+                        dismiss()
                     }
+                    
+                    // SnackType section
+                    SnackTypeSectionView(snacks: $snacks)
+                    
+                    // Snack Grid list section
+                    SnackGridView().padding(.top, MARGIN_LARGE)
                     
                 }
-                .navigationBarBackButtonHidden(true)
+                .padding(.top, FOOTER_PADDING)
+                
+                // SNACK count bottom view
+                if filterSheet {
+                    FoodItemCountSheet()
+                        .onTapGesture {
+                            self.filterSheet.toggle()
+                        }
+                } else {
+                    NavigationLink(value: ViewOptionsRoute.checkout) {
+                        SnackCountBottomView(itemCount: $itemCount, image: IC_CHEV_DOWN, filterSheet: $filterSheet)
+                    }
+                    
+                    
+                }
                 
             }
-            .edgesIgnoringSafeArea([.top, .bottom])
+            .navigationBarBackButtonHidden(true)
+            
         }
+        .edgesIgnoringSafeArea([.top, .bottom])
         
     }
 }

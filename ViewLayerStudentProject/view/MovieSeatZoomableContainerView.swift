@@ -59,6 +59,7 @@ struct MovieSeatZoomableContainerView: View {
 struct MovieSeatZoomableContainerView_Previews: PreviewProvider {
     static var previews: some View {
         MovieSeatZoomableContainerView()
+            .background(Color(.black))
     }
 }
 
@@ -153,17 +154,21 @@ struct TicketPriceAndBuyTicketBtnView: View {
             }
             
             // Buy Ticket Button
-            ZStack{
-                Image(TICKET_BACKGROUND)
-                    .resizable()
-                    .frame(height: MARGIN_XXLARGE)
-                
-                Text("Buy Ticket")
-                    .font(.system(size: MARGIN_MEDIUM_2))
-                    .fontWeight(.semibold)
-                    .frame(width: MARGIN_XBIG + MARGIN_MEDIUM, height: MARGIN_XXLARGE)
-                    .background(Color(PRIMARY_COLOR))
-                
+            NavigationLink(value: ViewOptionsRoute.snack) {
+                ZStack{
+                    Image(TICKET_BACKGROUND)
+                        .resizable()
+                        .frame(height: MARGIN_XXLARGE)
+                    
+                    Text("Buy Ticket")
+                        .font(.system(size: MARGIN_MEDIUM_2))
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
+                        .frame(width: MARGIN_XBIG + MARGIN_MEDIUM, height: MARGIN_XXLARGE)
+                        .background(Color(PRIMARY_COLOR))
+                    
+                }
+               
             }
         }
         .padding(.top, MARGIN_XLARGE - 3)

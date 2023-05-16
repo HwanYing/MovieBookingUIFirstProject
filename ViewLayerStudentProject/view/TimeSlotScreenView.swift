@@ -8,46 +8,49 @@
 import SwiftUI
 
 struct TimeSlotScreenView: View {
-        
-    let cinemaPlace = [1: "JCGV:Junction City", 2: "JCGV: City Mall", 3: "Mingalar Cinema Gold Class", 4: "Thamata Cinema", 5: "Nawaday Cinema", 6: "Shae Saung Cinema"]
     
+    let cinemaPlace = [1: "JCGV:Junction City", 2: "JCGV: City Mall", 3: "Mingalar Cinema Gold Class", 4: "Thamata Cinema", 5: "Nawaday Cinema", 6: "Shae Saung Cinema"]
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
-        NavigationStack{
-            ZStack{
-                Color(BG_COLOR)
-                VStack(spacing: 0){
-                    // AppBar
-                    AppBar()
-                    
-                    // DateList
-                    DateListView()
-                        .padding(.top, MARGIN_XLARGE)
-                    
-                    // Viewingtype Section
-                    ViewingTypeSectionView()
-                        .padding(.top, MARGIN_LARGE)
-                    
-                    // TimeSlot Color section
-                    TimeSlotColorsView()
-                        .padding(.top, MARGIN_LARGE)
-                    
-                    // TimeSlots and hint section
-                    ScrollView(.vertical) {
-                        ForEach(1...cinemaPlace.count, id: \.self){ number in
-                            // Time slot item
-                            CinemaAndTimeSlotsItem(place: cinemaPlace[number] ?? "",placeId: number, isSeparatorShown: number != 6)
-                          
-                        }
-                    }
-                    .navigationDestination(for: Int.self) { _ in
-                        SeatingPlanPageView()
-                    }
-                    
+        ZStack{
+            Color(BG_COLOR)
+            VStack(spacing: 0){
+                // AppBar
+                AppBar(){
+                    dismiss()
                 }
-                .padding(.top, MARGIN_XBIG - MARGIN_MEDIUM)
+                
+                // DateList
+                DateListView()
+                    .padding(.top, MARGIN_XLARGE)
+                
+                // Viewingtype Section
+                ViewingTypeSectionView()
+                    .padding(.top, MARGIN_LARGE)
+                
+                // TimeSlot Color section
+                TimeSlotColorsView()
+                    .padding(.top, MARGIN_LARGE)
+                
+                // TimeSlots and hint section
+                ScrollView(.vertical) {
+                    ForEach(1...cinemaPlace.count, id: \.self){ number in
+                        // Time slot item
+                        CinemaAndTimeSlotsItem(place: cinemaPlace[number] ?? "",placeId: number, isSeparatorShown: number != 6)
+                        
+                    }
+                }
+               
             }
-            .edgesIgnoringSafeArea([.top, .bottom])
-            
+            .padding(.top, MARGIN_XBIG - MARGIN_MEDIUM)
+        }
+        .edgesIgnoringSafeArea([.top, .bottom])
+        .navigationBarHidden(true)
+        .navigationDestination(for: Int.self) { number in
+            if number == 2{
+                SeatingPlanPageView()
+            }
         }
     }
 }
@@ -59,6 +62,9 @@ struct TimeSlotScreenView_Previews: PreviewProvider {
 }
 
 struct AppBar: View {
+    
+    var onTapBack: () -> Void = {}
+    
     var body: some View {
         HStack{
             Image(systemName: IC_CHEV_LEFT)
@@ -66,8 +72,11 @@ struct AppBar: View {
                 .frame(width: MARGIN_HALF_LARGE - 1, height: MARGIN_LARGE - 2)
                 .foregroundColor(.white)
                 .fontWeight(.bold)
-                .padding(.leading, MARGIN_LARGE)
-            
+                .padding([.leading, .trailing], MARGIN_LARGE)
+                .onTapGesture {
+                    // TODO: Navigate Back
+                    onTapBack()
+                }
             Spacer()
             
             Image(systemName: IC_LOCATION)

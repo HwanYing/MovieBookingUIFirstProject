@@ -14,41 +14,45 @@ struct MovieListScreenView: View {
     
     var body: some View {
         
-        ZStack {
-            Color(BG_COLOR)
-            
-            VStack{
-                // App Bar
-                AppBarView()
+        NavigationStack {
+            ZStack {
+                Color(BG_COLOR)
                 
-                ScrollView{
-                    // Banner View
-                    MovieBannerView(onTapMovie: {
+                VStack{
+                    // App Bar
+                    AppBarView()
+                    
+                    ScrollView{
+                        // Banner View
+                        MovieBannerView(onTapMovie: {
+                            
+                        })
                         
-                    })
+                        // Movie Selection
+                        MovieSelectionView(selection: $currentSelection)
+                        
+                        // Movie Grid Section
+                        MovieGridView(sectionName: currentSelection)
+                            .padding(.top, MARGIN_MEDIUM_2)
                     
-                    // Movie Selection
-                    MovieSelectionView(selection: $currentSelection)
+                    }
                     
-                    // Movie Grid Section
-                    MovieGridView(sectionName: currentSelection)
-                        .padding(.top, MARGIN_LARGE)
-                    // onTapMovie: {
-                    //                        showDetails = true
-                    //                    }, sectionName: currentSelection
                 }
                 
             }
-            
-        }
-        .edgesIgnoringSafeArea([.top, .bottom])
-//                    .fullScreenCover(isPresented: $showDetails) {
-//                        if currentSelection == MOVIE_SECTION_TYPE {
-//                            AboutNSMovieView()
-//                        } else{
-//                            AboutCSMovieView(showDetails: $showDetails)
-//                        }
+            .edgesIgnoringSafeArea([.top, .bottom])
+            .navigationDestination(for: ViewOptionsRoute.self, destination: { route in
+                route.view
+            })
+//            .navigationDestination(for: Int.self, destination: { _ in
+//                if currentSelection == MOVIE_SECTION_TYPE {
+//                    AboutNSMovieView()
+//                } else if currentSelection == MOVIE_SECTION_TYPE_NEXT{
+//                    AboutCSMovieView()
 //                }
+//            })
+        }
+
     }
 }
 
@@ -103,8 +107,8 @@ struct MovieSelectionView: View {
                     .foregroundColor(Color(SUB_TEXT_COLOR))
                     .font(.system(size: MARGIN_MEDIUM_2))
                     .fontWeight(.bold)
-                    .padding()
-                    .frame(width: (UIScreen.main.bounds.width - MARGIN_XXLARGE) / 2)
+                    .padding(EdgeInsets(top: MARGIN_MEDIUM_1, leading: MARGIN_LARGE, bottom: MARGIN_MEDIUM_1, trailing: MARGIN_LARGE))
+                    .frame(width: (UIScreen.main.bounds.width - MARGIN_XXLARGE) / 2, height: MARGIN_MEDIUM_4 * 2)
                     .background(section.sectionName == selection ? Color(PRIMARY_COLOR) : Color(.clear))
                     .cornerRadius(MARGIN_MEDIUM)
                     .onTapGesture {
@@ -113,9 +117,9 @@ struct MovieSelectionView: View {
             }
         }
         .padding(8)
-        .frame(width: UIScreen.main.bounds.width - MARGIN_LARGE)
+        .frame(width: UIScreen.main.bounds.width - MARGIN_LARGE, height: MARGIN_XXLARGE + MARGIN_MEDIUM)
         .background(Color(SECTION_ICON_COLOR))
         .cornerRadius(MARGIN_MEDIUM)
-        .padding(.top, MARGIN_MEDIUM_2)
+//        .padding(.top, MARGIN_MEDIUM)
     }
 }

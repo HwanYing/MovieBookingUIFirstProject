@@ -10,7 +10,6 @@ import SwiftUI
 struct TicketInformationConfirmView: View {
     
     @State var ticketCount = 2
-    @Binding var successPayment: Bool
     
     var body: some View {
         ZStack {
@@ -131,7 +130,7 @@ struct TicketInformationConfirmView: View {
                         .font(.system(size: MARGIN_MEDIUM_4))
                         .foregroundColor(.black)
                         .fontWeight(.bold)
-                        .padding()
+                        .padding(MARGIN_MEDIUM_1)
                         .frame(width: DONE_BUTTON_WIDTH)
                         
                 })
@@ -152,7 +151,7 @@ struct TicketInformationConfirmView: View {
 
 struct TicketInformationConfirmView_Previews: PreviewProvider {
     static var previews: some View {
-        TicketInformationConfirmView(successPayment: .constant(false))
+        TicketInformationConfirmView()
     }
 }
 struct QRGeneratorView: View {

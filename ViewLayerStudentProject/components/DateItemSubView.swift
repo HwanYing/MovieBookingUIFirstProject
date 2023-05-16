@@ -32,7 +32,9 @@ struct DateItemSubView: View {
                     .padding(.top, MARGIN_SMALL + 1)
                 
             }
+            .foregroundColor(Color(.black))
             .padding(.top, MARGIN_MEDIUM_4)
+            
         })
         .frame(width: MARGIN_XBIG + MARGIN_SMALL, height: MARGIN_XBIG + MARGIN_MEDIUM_2 - 1)
     }

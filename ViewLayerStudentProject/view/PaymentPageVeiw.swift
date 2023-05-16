@@ -14,48 +14,46 @@ struct PaymentPageVeiw: View {
     @State var width = CGFloat.zero
     @State var labelWidth = CGFloat.zero
     let paymentList : [PaymentTypeVO] = paymentTypeData
-    @Binding var showPayment: Bool
-    @State var applyPromoCode = false
-    
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // background color
-                Color(BG_COLOR)
-                
-                VStack(alignment: .leading, spacing: 0.0) {
-                    // payment bar section
-                    PaymentAppBarView(tapToBack: $showPayment)
-                        .padding(.top, MARGIN_XBIG - MARGIN_MEDIUM)
-                    
-                    // Text Field section
-                    CustomNewTextField(text: $text, placeholder: placeholder, width: $width, labelWidth: $labelWidth)
-                        .padding(EdgeInsets(top: MARGIN_XLARGE, leading: MARGIN_SXLARGE, bottom: 0, trailing: MARGIN_SXLARGE))
-    // button section
-                    OfferOrApplyBtnView(applyPromoCode: $applyPromoCode)
-                        .padding(.top, MARGIN_XLARGE)
-                    
-                    // payment section
-                    PaymentListSectionView(paymentList: paymentList, successPayment: $applyPromoCode)
-                    
-                    Spacer()
-                }
-            }
-            .edgesIgnoringSafeArea([.top, .bottom])
+        ZStack {
+            // background color
+            Color(BG_COLOR)
             
+            VStack(alignment: .leading, spacing: 0.0) {
+                // payment bar section
+                PaymentAppBarView(){
+                    dismiss()
+                }.padding(.top, MARGIN_XBIG - MARGIN_MEDIUM)
+                
+                // Text Field section
+                CustomNewTextField(text: $text, placeholder: placeholder, width: $width, labelWidth: $labelWidth)
+                    .padding(EdgeInsets(top: MARGIN_XLARGE, leading: MARGIN_SXLARGE, bottom: 0, trailing: MARGIN_SXLARGE))
+                // button section
+                OfferOrApplyBtnView()
+                    .padding(.top, MARGIN_XLARGE)
+                
+                // payment section
+                PaymentListSectionView(paymentList: paymentList)
+                
+                Spacer()
+            }
         }
+        .edgesIgnoringSafeArea([.top, .bottom])
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 struct PaymentPageVeiw_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentPageVeiw(showPayment: .constant(false))
+        PaymentPageVeiw()
     }
 }
 
 struct PaymentAppBarView: View {
     
-    @Binding var tapToBack: Bool
+    var onTapBack: () -> Void = {}
     
     var body: some View {
         HStack(spacing: 0.0){
@@ -66,7 +64,7 @@ struct PaymentAppBarView: View {
                 .fontWeight(.bold)
                 .padding(.leading, MARGIN_MEDIUM_4)
                 .onTapGesture {
-                    tapToBack = false
+                    onTapBack()
                 }
             
             Spacer()
@@ -136,14 +134,12 @@ struct CustomNewTextField: View {
                     print("LabelWidth", labelWidth)
                 })
         }
-       
+        
     }
 }
 
 struct OfferOrApplyBtnView: View {
-    
-    @Binding var applyPromoCode: Bool
-    
+        
     var body: some View {
         HStack{
             Image(BXS_OFFER_IMG)
@@ -160,9 +156,7 @@ struct OfferOrApplyBtnView: View {
         .background(Color(PRIMARY_COLOR))
         .cornerRadius(MARGIN_MEDIUM)
         .padding(.leading, MARGIN_SXLARGE)
-        .onTapGesture {
-            self.applyPromoCode = true
-        }
+        
     }
 }
 
@@ -200,7 +194,6 @@ struct PaymentTypeView: View {
 struct PaymentListSectionView: View {
     
     var paymentList: [PaymentTypeVO]
-    @Binding var successPayment: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0.0) {
@@ -209,12 +202,9 @@ struct PaymentListSectionView: View {
                 .foregroundColor(Color(PRIMARY_COLOR))
                 .fontWeight(.bold)
             ForEach(0..<paymentList.count, id: \.self) { i in
-                NavigationLink(value: i) {
+                NavigationLink(value: ViewOptionsRoute.paymentSuccess) {
                     PaymentTypeView(paymentName: paymentList[i].paymentType, image: paymentList[i].image)
                         .padding(.top, MARGIN_MEDIUM_1)
-                }
-                .navigationDestination(for: Int.self) { _ in
-                    TicketInformationConfirmView(successPayment: $successPayment)
                 }
                
             }

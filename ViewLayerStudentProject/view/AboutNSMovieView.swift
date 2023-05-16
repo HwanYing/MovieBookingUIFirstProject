@@ -12,10 +12,7 @@ let VIDEO_URL = "https://videos.files.wordpress.com/oLcnXufh/sos.cc103_waitingfo
 
 struct AboutNSMovieView: View {
     
-    //    @Binding var showDetails: Bool
-    @State var grabAbite = false
     @Environment(\.dismiss) var dismiss
-    @Binding var stateId : Int
     
     var body: some View {
         ZStack {
@@ -49,24 +46,23 @@ struct AboutNSMovieView: View {
                     
                 }
                 .padding(.top, MARGIN_XXLARGE)
-                .fullScreenCover(isPresented: $grabAbite) {
-                    GrabABiteView(grabAbite: $grabAbite)
-                }
-                // Booking Floating Button
                 
-                BookingButtonView(grabAbite: $grabAbite)
+                // Booking Floating Button
+                BookingButtonView()
                 
             }
             .navigationBarBackButtonHidden(true)
             
         }
         .edgesIgnoringSafeArea([.top, .bottom])
+        
     }
 }
 
 struct AboutNSMovieView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        AboutNSMovieView(stateId: .constant(0))
+        AboutNSMovieView()
     }
 }
 
@@ -214,8 +210,6 @@ struct StoryLineView: View {
 
 struct BookingButtonView: View {
     
-    @Binding var grabAbite: Bool
-    
     var body: some View {
         
         ZStack{
@@ -227,7 +221,9 @@ struct BookingButtonView: View {
                 Spacer(minLength: MARGIN_XLARGE)
                 
                 // Booking Button
-                BottomFloatingBtnView(text: BOOKING_BTN_LABEL, grabAbite: $grabAbite, showPayment: .constant(false))
+                NavigationLink(value: ViewOptionsRoute.timeSlot) {
+                    BottomFloatingBtnView(text: BOOKING_BTN_LABEL)
+                }
                 
             }
             .frame(width: BOOKING_BTN_WIDTH, height: BOOKING_BTN_HEIGHT)
@@ -298,8 +294,6 @@ struct ReleasedSectionView: View {
 struct BottomFloatingBtnView: View {
     
     var text: String
-    @Binding var grabAbite: Bool
-    @Binding var showPayment: Bool
     
     var body: some View {
         ZStack {
@@ -310,17 +304,9 @@ struct BottomFloatingBtnView: View {
                 .fontWeight(.bold)
                 .padding()
                 .frame(width: BOOKING_BTN_WIDTH, height: BOOKING_BTN_HEIGHT)
-            
-                .frame(width: BOOKING_BTN_WIDTH, height: BOOKING_BTN_HEIGHT)
                 .background(Color(PRIMARY_COLOR))
                 .cornerRadius(MARGIN_MEDIUM_1)
-//                .onTapGesture {
-//                    if text == CONTINUE_BTN_LABEL {
-//                        showPayment = true
-//                    } else {
-//                        grabAbite = true
-//                    }
-//                }
+            
             HStack {
                 
                 HalfCircleView(widthAndHeight: MARGIN_MEDIUM_4)

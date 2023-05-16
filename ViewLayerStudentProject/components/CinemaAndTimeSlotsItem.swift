@@ -71,6 +71,7 @@ struct CinemaAndTimeSlotsItem: View {
             }
         }
         .background(Color(BG_COLOR))
+        
     }
 }
 
@@ -122,8 +123,7 @@ struct TimeSlotItemView: View {
     
     var body: some View {
         ZStack{
-            Rectangle()
-                .background(Color(bgColor))
+            Color(bgColor)
             
             VStack(alignment: .center, spacing: MARGIN_SMALL) {
                 Text(time)
@@ -178,10 +178,9 @@ struct TimeSlotsView: View {
         LazyVGrid(columns: columns) {
             ForEach(data, id: \.self) { item in
                 // time slot item
-                NavigationLink(value: item) {
+                NavigationLink(value: ViewOptionsRoute.seatingPlan) {
                     TimeSlotItemView(time: item.time, viewType: item.viewType, screen: item.screen, availableCount: item.availableCount , borderColor: item.borderColor, bgColor: item.bgColor)
                 }
-                .buttonStyle(.plain)
             }
         }
     }
