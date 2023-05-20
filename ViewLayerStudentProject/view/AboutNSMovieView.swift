@@ -13,6 +13,7 @@ let VIDEO_URL = "https://videos.files.wordpress.com/oLcnXufh/sos.cc103_waitingfo
 struct AboutNSMovieView: View {
     
     @Environment(\.dismiss) var dismiss
+//    @Binding var selection: String
     
     var body: some View {
         ZStack {
@@ -27,7 +28,7 @@ struct AboutNSMovieView: View {
                         // Video Trailer View
                         MovieTrailerView(onTapBack: {
                             dismiss()
-                            //                            showDetails = false
+                            
                         })
                         
                         // Movie Poster, Rating, Genre

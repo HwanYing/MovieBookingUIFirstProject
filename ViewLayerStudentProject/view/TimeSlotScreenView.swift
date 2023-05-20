@@ -114,7 +114,7 @@ struct DateListView: View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack(spacing: 0){
                 ForEach(1...dayList.count, id: \.self){ date in
-                    DateItemSubView(date: date + 14, day: dayList[date]!)
+                    DateItemSubView(date: date + 18, day: dayList[date]!)
                 }
             }
             .padding(.leading, MARGIN_SMALL)

@@ -26,7 +26,7 @@ struct MovieGridView: View {
         ScrollView{
             LazyVGrid(columns: columns, spacing: MARGIN_MEDIUM_4) {
                 ForEach(1...10, id: \.self) { item in
-                    NavigationLink(value: ViewOptionsRoute.movieDetails){
+                    NavigationLink(value: sectionName == MOVIE_SECTION_TYPE ? ViewOptionsRoute.movieDetailsNS : ViewOptionsRoute.movieDetailsCS){
                             if sectionName == MOVIE_SECTION_TYPE {
                                 MovieCardView()
                             } else {

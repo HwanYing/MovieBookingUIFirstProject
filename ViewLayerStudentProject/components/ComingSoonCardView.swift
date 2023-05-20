@@ -8,6 +8,13 @@
 import SwiftUI
 
 struct ComingSoonCardView: View {
+    
+    let now = Date.now
+    let tomorrow = Date.now.addingTimeInterval(86400)
+    let nextDay = Date.now.addingTimeInterval(86400*5)
+
+    @State var Datelabel = ""
+    
     var body: some View {
         ZStack {
             
@@ -25,7 +32,7 @@ struct ComingSoonCardView: View {
                     LinearGradient(colors: [.clear,.clear,.clear, Color(.black)], startPoint: .top, endPoint: .bottom)
                     
                     // Air date text
-                    Text("12th MAY")
+                    Text("\(Datelabel)th MAY")
                         .foregroundColor(Color(SECTION_BG_COLOR))
                         .font(.system(size: MARGIN_MEDIUM_1))
                         .fontWeight(.semibold)
@@ -34,6 +41,7 @@ struct ComingSoonCardView: View {
                         .background(Color(PRIMARY_COLOR))
                         .cornerRadius(MARGIN_MEDIUM)
                         .padding(EdgeInsets(top: MARGIN_MEDIUM, leading: 130, bottom: 0, trailing: 0))
+                        
                 }
                 // Title View
                 HStack{
@@ -76,10 +84,19 @@ struct ComingSoonCardView: View {
                 }
                 .padding(EdgeInsets(top: MARGIN_CARD_MEDIUM_2, leading: MARGIN_MEDIUM, bottom: MARGIN_MEDIUM_4, trailing: MARGIN_MEDIUM))
             }
-            
+            .onAppear(){
+                createDateLabel()
+            }
         }
         .frame(width: MOVIE_CARD_WIDTH, height: MOVIE_CARD_HEIGHT)
         .cornerRadius(MARGIN_MEDIUM)
+    }
+    func createDateLabel() {
+        let components = Calendar.current.dateComponents([.day, .hour, .minute], from: nextDay)
+        let hour = components.hour ?? 0
+        let minute = components.minute ?? 0
+        let day = components.day ?? 1
+        Datelabel = "\(day)"
     }
 }
 

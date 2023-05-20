@@ -11,6 +11,7 @@ struct MovieListScreenView: View {
     
     @State var currentSelection = MOVIE_SECTION_TYPE
     @State var showDetails = false
+    @Binding var region: String
     
     var body: some View {
         
@@ -20,7 +21,7 @@ struct MovieListScreenView: View {
                 
                 VStack{
                     // App Bar
-                    AppBarView()
+                    AppBarView(region: $region)
                     
                     ScrollView{
                         // Banner View
@@ -58,11 +59,14 @@ struct MovieListScreenView: View {
 
 struct MovieListScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListScreenView()
+        MovieListScreenView(region: .constant(""))
     }
 }
 
 struct AppBarView: View {
+    
+    @Binding var region: String
+    
     var body: some View {
         HStack{
             // location icon
@@ -72,7 +76,7 @@ struct AppBarView: View {
                 .foregroundColor(.white)
             
             // Location
-            Text("Yangon")
+            Text(region)
                 .foregroundColor(.white)
                 .font(.system(size: MARGIN_MEDIUM_3))
                 .fontWeight(.bold)

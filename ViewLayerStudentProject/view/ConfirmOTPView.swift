@@ -9,10 +9,18 @@ import SwiftUI
 
 struct ConfirmOTPView: View {
     
-    @State var number: String = ""
+    @State var number1: String = ""
+    @State var number2: String = ""
+    
+    @State var number3: String = ""
+    
+    @State var number4: String = ""
+    @State var number5: String = ""
+    @State var number6: String = ""
+    
     @Binding var confirmOTP: Bool
     @State var selectRegion = false
-
+    
     var body: some View {
         ZStack {
             Color(BG_COLOR)
@@ -24,7 +32,7 @@ struct ConfirmOTPView: View {
                 
                 
                 // enter OTP section
-                OTPCodeFieldSectionView(number: $number)
+                OTPCodeFieldSectionView(number1: $number1, number2: $number2, number3: $number3, number4: $number4, number5: $number5, number6: $number6)
                 
                 // OTP Text Field Section View
                 OTPReceiveStateSection()
@@ -50,8 +58,13 @@ struct ConfirmOTPView_Previews: PreviewProvider {
 
 struct OTPCodeFieldSectionView: View {
     
-    @Binding var number: String
-    
+    @Binding var number1: String
+    @Binding var number2: String
+    @Binding var number3: String
+    @Binding var number4: String
+    @Binding var number5: String
+    @Binding var number6: String
+
     var body: some View {
         VStack (spacing: 0.0) {
             
@@ -63,14 +76,49 @@ struct OTPCodeFieldSectionView: View {
             .padding([.leading, .trailing], MARGIN_LARGE)
             
             HStack {
-                ForEach(0...5, id: \.self) { _ in
-                    TextField("", text: $number)
-                        .padding(.leading, MARGIN_MEDIUM_3)
-                        .frame(width: OTP_PIN_SIZE, height: OTP_PIN_SIZE)
-                        .background(Color.white)
-                        .foregroundColor(Color(BG_COLOR))
-                        .cornerRadius(MARGIN_MEDIUM)
-                }
+                //                ForEach(0...5, id: \.self) { i in
+                TextField("", text: $number1)
+                    .padding(.leading, MARGIN_MEDIUM_3)
+                    .frame(width: OTP_PIN_SIZE, height: OTP_PIN_SIZE)
+                    .background(Color.white)
+                    .foregroundColor(Color(BG_COLOR))
+                    .cornerRadius(MARGIN_MEDIUM)
+                
+                TextField("", text: $number2)
+                    .padding(.leading, MARGIN_MEDIUM_3)
+                    .frame(width: OTP_PIN_SIZE, height: OTP_PIN_SIZE)
+                    .background(Color.white)
+                    .foregroundColor(Color(BG_COLOR))
+                    .cornerRadius(MARGIN_MEDIUM)
+                
+                TextField("", text: $number3)
+                    .padding(.leading, MARGIN_MEDIUM_3)
+                    .frame(width: OTP_PIN_SIZE, height: OTP_PIN_SIZE)
+                    .background(Color.white)
+                    .foregroundColor(Color(BG_COLOR))
+                    .cornerRadius(MARGIN_MEDIUM)
+                
+                TextField("", text: $number4)
+                    .padding(.leading, MARGIN_MEDIUM_3)
+                    .frame(width: OTP_PIN_SIZE, height: OTP_PIN_SIZE)
+                    .background(Color.white)
+                    .foregroundColor(Color(BG_COLOR))
+                    .cornerRadius(MARGIN_MEDIUM)
+                
+                TextField("", text: $number5)
+                    .padding(.leading, MARGIN_MEDIUM_3)
+                    .frame(width: OTP_PIN_SIZE, height: OTP_PIN_SIZE)
+                    .background(Color.white)
+                    .foregroundColor(Color(BG_COLOR))
+                    .cornerRadius(MARGIN_MEDIUM)
+                
+                TextField("", text: $number6)
+                    .padding(.leading, MARGIN_MEDIUM_3)
+                    .frame(width: OTP_PIN_SIZE, height: OTP_PIN_SIZE)
+                    .background(Color.white)
+                    .foregroundColor(Color(BG_COLOR))
+                    .cornerRadius(MARGIN_MEDIUM)
+                //                }
             }
             .padding(.top, MARGIN_MEDIUM)
             

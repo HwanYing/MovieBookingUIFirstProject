@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 
 //Create an `enum` so you can define your options
-enum ViewOptionsRoute{
-    case movieDetails
+enum ViewOptionsRoute: Hashable{
+    case movieDetailsCS
+    case movieDetailsNS
     case timeSlot
     case seatingPlan
     case snack
@@ -22,7 +23,9 @@ enum ViewOptionsRoute{
     @ViewBuilder
     var view: some View{
         switch self{
-        case .movieDetails:
+        case .movieDetailsCS:
+            AboutCSMovieView()
+        case .movieDetailsNS:
             AboutNSMovieView()
         case .timeSlot:
             TimeSlotScreenView()

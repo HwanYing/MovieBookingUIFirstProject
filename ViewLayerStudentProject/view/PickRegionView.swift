@@ -11,6 +11,7 @@ struct PickRegionView: View {
     
     @State var showVerify = false // for showing verify view
     @Binding var selectRegion: Bool
+    @State var regionTitle = "Yangon"
     
     var body: some View {
         ZStack {
@@ -31,7 +32,7 @@ struct PickRegionView: View {
                 SearchSectionView()
 
                 // City Section
-                RegionSectionView(showVerify: $showVerify)
+                RegionSectionView(showVerify: $showVerify, regionTitle: $regionTitle)
 
                 Spacer()
             }
@@ -39,7 +40,7 @@ struct PickRegionView: View {
         }
         .edgesIgnoringSafeArea([.top,.bottom])
         .fullScreenCover(isPresented: $showVerify) {
-            TabBarView()
+            TabBarView(region: $regionTitle)
         }
     }
 }
@@ -90,6 +91,7 @@ struct RegionSectionView: View {
     
     @State var cities: [CityVO] = dummyCities
     @Binding var showVerify: Bool
+    @Binding var regionTitle: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0.0) {
@@ -118,10 +120,12 @@ struct RegionSectionView: View {
                         .background(Color(TITLE_LABEL_COLOR))
                 }
                 .padding(.trailing, MARGIN_XLARGE)
+                .onTapGesture {
+                    regionTitle = city.cityName
+                    showVerify = true
+                }
             }
-            .onTapGesture {
-                showVerify = true
-            }
+            
         }
         .frame(width: UIScreen.main.bounds.width)
     }

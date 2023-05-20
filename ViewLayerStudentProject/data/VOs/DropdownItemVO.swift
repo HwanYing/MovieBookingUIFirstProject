@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct DropdownItemVO: Identifiable{
+    let id: Int
+    let title: String
+    let onSelect: () -> Void
+}

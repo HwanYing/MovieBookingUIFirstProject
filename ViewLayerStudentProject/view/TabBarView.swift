@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     
     @State var current: String = TAB_ONE_LABEL
+    @Binding var region: String
     
     var body: some View {
         NavigationStack {
@@ -20,12 +21,12 @@ struct TabBarView: View {
                 ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
                     TabView(selection: $current) {
                         
-                        MovieListScreenView()
+                        MovieListScreenView(region: $region)
                             .tag(TAB_ONE_LABEL)
                         
-                        Text(TAB_TWO_LABEL)
+                        TicketView()
                             .tag(TAB_TWO_LABEL)
-                        Text(TAB_THREE_LABEL)
+                        TicketView()
                             .tag(TAB_THREE_LABEL)
                         MyProfileView()
                             .tag(TAB_FOUR_LABEL)
@@ -50,6 +51,6 @@ struct TabBarView: View {
 
 struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TabBarView()
+        TabBarView(region: .constant(""))
     }
 }

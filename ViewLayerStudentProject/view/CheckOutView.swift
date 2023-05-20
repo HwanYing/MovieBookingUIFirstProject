@@ -336,9 +336,9 @@ struct DashedLineView: View {
     var body: some View {
         ZStack {
             Line()
-                .stroke(style: StrokeStyle(lineWidth: 1, dash: [5.0]))
+                .stroke(style: StrokeStyle(lineWidth: 1, dash: [MARGIN_MEDIUM - 2]))
                 .frame(height: 1)
-                .foregroundColor(Color(SUB_TEXT_COLOR))
+                .foregroundColor(Color(SUB_TEXT_COLOR).opacity(0.5))
             
             HStack {
                 HalfCircleView1(widthAndHeight: MARGIN_SXLARGE, color: BG_COLOR)

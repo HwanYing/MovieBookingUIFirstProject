@@ -181,6 +181,7 @@ struct TimeSlotsView: View {
                 NavigationLink(value: ViewOptionsRoute.seatingPlan) {
                     TimeSlotItemView(time: item.time, viewType: item.viewType, screen: item.screen, availableCount: item.availableCount , borderColor: item.borderColor, bgColor: item.bgColor)
                 }
+                .buttonStyle(.plain)
             }
         }
     }

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct FilterDataVO: Identifiable {
+    
+    let id: Int
+    let title: String
+    let value: [DropdownItemVO]
+}

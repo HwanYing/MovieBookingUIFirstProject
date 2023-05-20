@@ -219,3 +219,18 @@ let dummySeats = [
     MovieSeatsVO(text: "H", type: SEAT_TYPE_AVAILABLE),
     MovieSeatsVO(text: "H", type: SEAT_TYPE_TEXT),
 ]
+
+let dropDownData = [
+    DropdownItemVO(id: 1, title: "Messages", onSelect: {}),
+    DropdownItemVO(id: 2, title: "Archived", onSelect: {}),
+    DropdownItemVO(id: 3, title: "Trash", onSelect: {}),
+]
+// drop down wrap value
+let dummyDropDownInfo = [
+
+    FilterDataVO(id: 1, title: "Genres", value: dropDownData),
+    FilterDataVO(id: 2, title: "Format", value: dropDownData),
+    FilterDataVO(id: 3, title: "Month", value: dropDownData)
+    
+]
+

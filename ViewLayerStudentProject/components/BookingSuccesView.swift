@@ -20,7 +20,7 @@ struct BookingSuccesView: View {
                     .opacity(0.8)
                     .ignoresSafeArea()
                     
-                
+                // success popup image
                 Image(BOOKING_SUCCESS_IMG)
                     .resizable()
                     .frame(width: BOOKING_SUCCESS_WIDTH - MARGIN_LARGE, height: BOOKING_SUCCESS_HEIGHT)
@@ -32,7 +32,9 @@ struct BookingSuccesView: View {
         .animation(.easeInOut, value: 1)
         .onAppear(){
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(2.0)) {
-                self.isSuccessBooking = true
+                withAnimation {
+                    self.isSuccessBooking = true
+                }
             }
         }
 

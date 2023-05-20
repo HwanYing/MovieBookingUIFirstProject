@@ -61,6 +61,7 @@ struct CustomTextField : View {
     @Binding var value: String
     var placeHolder: String
     var bColor: Color
+    var bottomColor: Color
     
     var body: some View {
         ZStack(alignment: .leading){
@@ -80,7 +81,7 @@ struct CustomTextField : View {
                 .keyboardType(.phonePad)
                 
         }
-        .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).padding(.leading, MARGIN_CARD_MEDIUM_2).foregroundColor(Color.white), alignment: .bottom)
+        .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).padding(.leading, MARGIN_CARD_MEDIUM_2).foregroundColor(bottomColor), alignment: .bottom)
 
     }
 }
@@ -158,7 +159,7 @@ struct MobileFieldAndCodeView: View {
                 //                                isSelecting.toggle()
                 //                            }
                 
-                CustomTextField(value: $phNumber, placeHolder: MOBILE_NO_HOLDER, bColor: Color(SUB_TEXT_COLOR))
+                CustomTextField(value: $phNumber, placeHolder: MOBILE_NO_HOLDER, bColor: Color(SUB_TEXT_COLOR), bottomColor: Color(.white))
             }
             
         }
