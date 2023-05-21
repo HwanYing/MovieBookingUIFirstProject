@@ -20,14 +20,18 @@ struct TabBarView: View {
                 
                 ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
                     TabView(selection: $current) {
-                        
+                        // Main Movie Tab
                         MovieListScreenView(region: $region)
                             .tag(TAB_ONE_LABEL)
-                        
+                        // Cinema Tab
                         TicketView()
                             .tag(TAB_TWO_LABEL)
+                        
+                        // Ticket Tab
                         TicketView()
                             .tag(TAB_THREE_LABEL)
+                        
+                        // Profile Tab
                         MyProfileView()
                             .tag(TAB_FOUR_LABEL)
                     }

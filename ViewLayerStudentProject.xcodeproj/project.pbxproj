@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		503D7C742A12416600D43019 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503D7C732A12416600D43019 /* Enums.swift */; };
+		5045182B2A19F64300426A34 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5045182A2A19F64300426A34 /* AppState.swift */; };
 		5067EC7B2A0D1420006EB8BB /* TicketInformationConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5067EC7A2A0D1420006EB8BB /* TicketInformationConfirmView.swift */; };
 		5067EC7D2A0D14EF006EB8BB /* BookingSuccesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5067EC7C2A0D14EF006EB8BB /* BookingSuccesView.swift */; };
 		5067EC7F2A0D2F15006EB8BB /* ProfileSettingVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5067EC7E2A0D2F15006EB8BB /* ProfileSettingVO.swift */; };
@@ -73,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		503D7C732A12416600D43019 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		5045182A2A19F64300426A34 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		5067EC7A2A0D1420006EB8BB /* TicketInformationConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketInformationConfirmView.swift; sourceTree = "<group>"; };
 		5067EC7C2A0D14EF006EB8BB /* BookingSuccesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingSuccesView.swift; sourceTree = "<group>"; };
 		5067EC7E2A0D2F15006EB8BB /* ProfileSettingVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingVO.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				50A78C662A03DB510037C232 /* BannerStoreRepo.swift */,
+				5045182A2A19F64300426A34 /* AppState.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				508B33D82A07D0900098CFCE /* MovieSelectionDataView.swift in Sources */,
 				5067EC7B2A0D1420006EB8BB /* TicketInformationConfirmView.swift in Sources */,
 				508B33D62A07D0790098CFCE /* MyProfileView.swift in Sources */,
+				5045182B2A19F64300426A34 /* AppState.swift in Sources */,
 				50D494A42A04EBA30017786F /* ComingSoonCardView.swift in Sources */,
 				50D494A62A04F03D0017786F /* MovieDetailScreenView.swift in Sources */,
 				50A78C592A03A3760037C232 /* DummyData.swift in Sources */,

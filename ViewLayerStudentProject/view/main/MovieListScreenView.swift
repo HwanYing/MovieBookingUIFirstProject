@@ -45,13 +45,6 @@ struct MovieListScreenView: View {
             .navigationDestination(for: ViewOptionsRoute.self, destination: { route in
                 route.view
             })
-//            .navigationDestination(for: Int.self, destination: { _ in
-//                if currentSelection == MOVIE_SECTION_TYPE {
-//                    AboutNSMovieView()
-//                } else if currentSelection == MOVIE_SECTION_TYPE_NEXT{
-//                    AboutCSMovieView()
-//                }
-//            })
         }
 
     }

@@ -147,19 +147,17 @@ struct MovieInfoSectionOneView: View {
 
 struct DoneButtonView: View {
     var body: some View {
-        Button(action: {
-            
-        }, label: {
+        
+        NavigationLink(value: ViewOptionsRoute.movieDetailsNS) {
             Text(DONE_BTN_LABEL)
                 .font(.system(size: MARGIN_MEDIUM_4))
                 .foregroundColor(.black)
                 .fontWeight(.bold)
                 .padding(MARGIN_MEDIUM_1)
                 .frame(width: DONE_BUTTON_WIDTH)
-            
-        })
-        .background(Color(PRIMARY_COLOR))
-        .cornerRadius(MARGIN_SMALL)
+                .background(Color(PRIMARY_COLOR))
+            .cornerRadius(MARGIN_SMALL)
+        }
     }
 }
 

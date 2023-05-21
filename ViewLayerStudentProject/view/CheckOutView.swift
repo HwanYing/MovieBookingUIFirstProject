@@ -14,78 +14,83 @@ struct CheckOutView: View {
     @State var ticketPolicyShow = false
     @State var showPayment: Bool = false
     @Environment(\.dismiss) var dismiss
-
+    @State var showBeverage: Bool = true
+    
     var body: some View {
         ZStack {
             // Background color
             Color(BG_COLOR)
             
-            VStack{
-                // App Bar Section
-                CheckOutAppbarView(){
-                    dismiss()
-                }
-                
-                // Check Info Section
-                VStack(alignment: .leading,spacing: 0.0) {
-                    // MovieTitle section
-                    MovieTitleSectionView()
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack{
+                    // App Bar Section
+                    CheckOutAppbarView(){
+                        dismiss()
+                    }
+                    .padding(.top, MARGIN_XXLARGE + MARGIN_MEDIUM_1)
                     
-                    // cinema place, screen no.
-                    CinemaPlaceScreenView()
-                    
-                    // Date, time , place
-                    DateTimePlaceCombineView()
-                    
-                    // no of ticket
-                    NumberOfTicketSectionView(ticketCount: ticketCount)
-                    
-                    // tiket info section
-                    TicketInfoSectionView()
-                    
-                    Divider()
-                        .background(Color(SUB_TEXT_COLOR))
-                        .padding(.top, MARGIN_MEDIUM_4)
-                    
-                    // food and beverage title
-                    FoodAndBeverageTitleView()
-                    
-                    // food and beverage section
-                    FoodListView()
-                    
-                    VStack(alignment: .leading, spacing: 0.0) {
+                    // Check Info Section
+                    VStack(alignment: .leading,spacing: 0.0) {
+                        // MovieTitle section
+                        MovieTitleSectionView()
                         
-                        // Dash divider
-                        DashedLineView()
+                        // cinema place, screen no.
+                        CinemaPlaceScreenView()
                         
-                        // convenience fee title
-                        ConvenienceFeeTitleView()
+                        // Date, time , place
+                        DateTimePlaceCombineView()
                         
-                        // ticket policy section
-                        TicketPolicySectionView(ticketPolicyShow: $ticketPolicyShow)
+                        // no of ticket
+                        NumberOfTicketSectionView(ticketCount: ticketCount)
+                        
+                        // tiket info section
+                        TicketInfoSectionView()
                         
                         Divider()
                             .background(Color(SUB_TEXT_COLOR))
-                            .padding(.top, MARGIN_XLARGE - 2)
+                            .padding(.top, MARGIN_MEDIUM_4)
                         
-                        // Final Total section
-                        FinalTotalView()
+                        // food and beverage title
+                        FoodAndBeverageTitleView(showBeverage: $showBeverage)
+                        
+                        // food and beverage section
+                        FoodListView(expandBeverage: showBeverage)
+                        
+                        VStack(alignment: .leading, spacing: 0.0) {
+                            
+                            // Dash divider
+                            DashedLineView()
+                            
+                            // convenience fee title
+                            ConvenienceFeeTitleView()
+                            
+                            // ticket policy section
+                            TicketPolicySectionView(ticketPolicyShow: $ticketPolicyShow)
+                            
+                            Divider()
+                                .background(Color(SUB_TEXT_COLOR))
+                                .padding(.top, MARGIN_XLARGE - 2)
+                            
+                            // Final Total section
+                            FinalTotalView()
+                        }
+                        
+                        
+                        
                     }
+                    .padding([.leading,.trailing], MARGIN_LARGE)
+                    .frame(width: UIScreen.main.bounds.width - MARGIN_SXLARGE)
+                    .padding(.top, MARGIN_XLARGE)
+                    .background(cardBgColor)
+                    .cornerRadius(MARGIN_MEDIUM)
                     
-                    
-                    
-                }
-                .padding([.leading,.trailing], MARGIN_LARGE)
-                .frame(width: UIScreen.main.bounds.width - MARGIN_SXLARGE)
-                .padding(.top, MARGIN_XLARGE)
-                .background(cardBgColor)
-                .cornerRadius(MARGIN_MEDIUM)
-                
-                // continue button
-                NavigationLink(value: ViewOptionsRoute.payment) {
-                    
-                    BottomFloatingBtnView(text: CONTINUE_BTN_LABEL)
-                        .padding(.top, MARGIN_MEDIUM)
+                    // continue button
+                    NavigationLink(value: ViewOptionsRoute.payment) {
+                        
+                        BottomFloatingBtnView(text: CONTINUE_BTN_LABEL)
+                            .padding(.top, MARGIN_MEDIUM)
+                    }
+                    Spacer()
                 }
             }
             
@@ -294,6 +299,10 @@ struct TicketInfoSectionView: View {
 }
 
 struct FoodAndBeverageTitleView: View {
+    
+    @Binding var showBeverage: Bool
+    @State var icon = IC_CHEV_UP
+    
     var body: some View {
         HStack {
             Image(FOOD_AND_BEVERAGE_IMG)
@@ -305,11 +314,14 @@ struct FoodAndBeverageTitleView: View {
                 .foregroundColor(.white)
                 .fontWeight(.bold)
             
-            Image(systemName: IC_CHEV_UP)
+            Image(systemName: showBeverage ? icon : IC_CHEV_DOWN)
                 .resizable()
                 .frame(width: MARGIN_MEDIUM_1, height: MARGIN_MEDIUM)
                 .foregroundColor(.white)
                 .fontWeight(.bold)
+                .onTapGesture {
+                    showBeverage.toggle()
+                }
             
             Spacer()
             
@@ -323,12 +335,18 @@ struct FoodAndBeverageTitleView: View {
 }
 
 struct FoodListView: View {
+    
+    var expandBeverage: Bool
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0.0) {
-            FoodAndBeverageListView(foodName: "Potato Chips", qty: 1, price: 1000)
-            FoodAndBeverageListView(foodName: "Cocacola Large", qty: 1, price: 1000)
+        
+        if expandBeverage {
+            VStack(alignment: .leading, spacing: 0.0) {
+                FoodAndBeverageListView(foodName: "Potato Chips", qty: 1, price: 1000)
+                FoodAndBeverageListView(foodName: "Cocacola Large", qty: 1, price: 1000)
+            }
+            .padding(.top, MARGIN_MEDIUM)
         }
-        .padding(.top, MARGIN_MEDIUM)
     }
 }
 

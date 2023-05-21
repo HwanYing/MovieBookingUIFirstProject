@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct ViewLayerStudentProjectApp: App {
+        
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
